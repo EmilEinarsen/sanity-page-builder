@@ -1,0 +1,28 @@
+{
+  "name": "sanity-page-builder",
+  "version": "1.0.0",
+  "description": "collection of schemas for sanity of commonly use webpage sections",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EmilEinarsen/sanity-page-builder.git"
+  },
+  "keywords": [
+    "sanity",
+    "schemas",
+    "page-builder",
+    "js"
+  ],
+  "author": "Emil Einarsen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EmilEinarsen/sanity-page-builder/issues"
+  },
+  "homepage": "https://github.com/EmilEinarsen/sanity-page-builder#readme",
+  "peerDependencies": {
+    "@sanity/client": "^3.4"
+  }
+}
