@@ -1,0 +1,20 @@
+{
+  "extends": [
+		"prettier",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+	],
+  "env": {
+    "browser": true
+  },
+  "parserOptions": {
+    "requireConfigFile": false
+  },
+  "rules": {
+    "@typescript-eslint/no-empty-interface": 1,
+		"no-console": 2,
+		"camelcase": 1,
+		"no-new-func": 2,
+  }
+}

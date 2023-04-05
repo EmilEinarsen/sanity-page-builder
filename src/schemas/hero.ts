@@ -1,8 +1,10 @@
+import { defineType } from 'sanity'
+import { customImage } from '../utils/custom-image'
+
 export const hero = defineType({
   type: 'object',
   name: 'hero',
   title: 'Hero',
-  icon: Star,
   fields: [
 		{
 			name: 'title',
