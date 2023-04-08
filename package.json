@@ -1,8 +1,12 @@
 {
   "name": "sanity-page-builder",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "collection of schemas for sanity of commonly use webpage sections",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,6 +27,6 @@
   },
   "homepage": "https://github.com/EmilEinarsen/sanity-page-builder#readme",
   "peerDependencies": {
-    "@sanity/client": "^3.4"
+    "sanity": "^3.8.3"
   }
 }
