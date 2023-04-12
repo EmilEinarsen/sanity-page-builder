@@ -67,6 +67,7 @@ exports.hero = (0, sanity_1.defineType)({
             options: {
                 list: [
                     { title: 'Left', value: 'left' },
+                    { title: 'Center', value: 'center' },
                     { title: 'Right', value: 'right' }
                 ],
                 layout: 'radio'
