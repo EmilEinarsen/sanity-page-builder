@@ -49,6 +49,20 @@ export const hero = defineType({
     },
 		{
 			type: 'string',
+			name: 'backgroundWidth',
+			title: 'Background size',
+			description: 'Background width; What should the background be relative to?',
+			options: {
+				list: [
+					{title: 'Page', value: 'page'},
+					{title: 'Container', value: 'container'}
+				],
+				layout: 'radio'
+			},
+			initialValue: 'container',
+		},
+		{
+			type: 'string',
 			name: 'theme',
 			title: 'Theme',
 			description: 'Background image theme; Text color will be highest contrast',
