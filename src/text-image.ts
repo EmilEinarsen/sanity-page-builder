@@ -1,5 +1,6 @@
-import { defineType } from "sanity";
-import { customImage } from "../utils/custom-image";
+import groq from "groq";
+import { defineType, PortableTextBlock } from "sanity";
+import { image, ImageObject, imageQuery } from "./image";
 
 export const textImage = defineType({
 	name: 'text-image',
@@ -11,10 +12,7 @@ export const textImage = defineType({
 			name: 'body',
 			title: 'Body'
 		},
-    customImage({
-			name: 'image',
-			title: 'Image',
-    }),
+    image,
 		{
 			name: 'alignment',
 			title: 'Alignment (Text)',
@@ -43,3 +41,21 @@ export const textImage = defineType({
 		})
   }
 })
+
+export const textImageQuery = groq`
+  _type,
+  _key,
+  body,
+  image {
+    ${imageQuery}
+  },
+  alignment
+`
+
+export type TextImage = {
+	_type: 'text-image'
+	_key: string
+	body: PortableTextBlock
+	image: ImageObject
+	alignment: 'left' | 'right'
+}

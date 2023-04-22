@@ -1,8 +1,12 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.textImage = void 0;
+exports.textImageQuery = exports.textImage = void 0;
+const groq_1 = __importDefault(require("groq"));
 const sanity_1 = require("sanity");
-const custom_image_1 = require("../utils/custom-image");
+const image_1 = require("./image");
 exports.textImage = (0, sanity_1.defineType)({
     name: 'text-image',
     title: 'Text Image',
@@ -13,10 +17,7 @@ exports.textImage = (0, sanity_1.defineType)({
             name: 'body',
             title: 'Body'
         },
-        (0, custom_image_1.customImage)({
-            name: 'image',
-            title: 'Image',
-        }),
+        image_1.image,
         {
             name: 'alignment',
             title: 'Alignment (Text)',
@@ -48,3 +49,12 @@ exports.textImage = (0, sanity_1.defineType)({
         }
     }
 });
+exports.textImageQuery = (0, groq_1.default) `
+  _type,
+  _key,
+  body,
+  image {
+    ${image_1.imageQuery}
+  },
+  alignment
+`;

@@ -1,5 +1,7 @@
+import groq from "groq"
 import { defineType } from "sanity"
-import { customImage } from "../utils/custom-image"
+
+import { image, ImageObject, imageQuery } from "./image"
 
 export const hero = defineType({
   type: 'object',
@@ -22,18 +24,19 @@ export const hero = defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Photo', value: 'photo' },
+          { title: 'Image', value: 'image' },
           { title: 'Video', value: 'video' }
         ],
         layout: 'radio',
         direction: 'horizontal'
       },
-			initialValue: 'photo'
+			initialValue: 'image'
     },
     {
-      ...customImage({ name: 'image', title: 'Background Image' }),
+      ...image,
+      title: 'Background Image',
       hidden: ({ parent }) => {
-        return parent.bgType !== 'photo'
+        return parent.bgType !== 'image'
       }
     },
     {
@@ -92,19 +95,64 @@ export const hero = defineType({
   ],
   preview: {
     select: {
-      photo: 'photo',
+      image: 'image',
       content: 'content.0.children',
       type: 'bgType'
     },
-    prepare({ type, photo, content }) {
+    prepare({ type, image, content }) {
       return type  === 'video' ? {
         title: 'Hero (Video)',
         subtitle: content && content[0]?.text,
       } : {
-        title: 'Hero (Photo)',
+        title: 'Hero (Image)',
         subtitle: content && content[0]?.text,
-        media: photo
+        media: image
       }
     }
   }
 })
+
+export const heroQuery = groq`
+  _type,
+  _key,
+  title,
+  text,
+  bgType,
+  image {
+    ${imageQuery}
+  },
+  video{
+    id,
+    title
+  },
+  backgroundWidth,
+  theme,
+  contentPlacement
+`
+
+type HeroBase = {
+	_type: 'hero'
+	_key: string
+	title: string
+	text: string
+  theme: 'light' | 'dark'
+	backgroundWidth: 'page' | 'container'
+	contentPlacement: 'left' | 'center' | 'right'
+}
+
+type HeroWithImage = HeroBase & {
+  bgType: 'image'
+	image: ImageObject
+}
+
+type HeroWithVideo = HeroBase & {
+  bgType: 'video'
+  video: {
+    _type: 'file'
+    _key: string
+    mimeType: `video/${string}`
+    url: string
+  }
+}
+
+export type Hero = HeroWithImage | HeroWithVideo

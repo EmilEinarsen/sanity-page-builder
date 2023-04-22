@@ -1,8 +1,12 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.hero = void 0;
+exports.heroQuery = exports.hero = void 0;
+const groq_1 = __importDefault(require("groq"));
 const sanity_1 = require("sanity");
-const custom_image_1 = require("../utils/custom-image");
+const image_1 = require("./image");
 exports.hero = (0, sanity_1.defineType)({
     type: 'object',
     name: 'hero',
@@ -24,16 +28,16 @@ exports.hero = (0, sanity_1.defineType)({
             type: 'string',
             options: {
                 list: [
-                    { title: 'Photo', value: 'photo' },
+                    { title: 'Image', value: 'image' },
                     { title: 'Video', value: 'video' }
                 ],
                 layout: 'radio',
                 direction: 'horizontal'
             },
-            initialValue: 'photo'
+            initialValue: 'image'
         },
-        Object.assign(Object.assign({}, (0, custom_image_1.customImage)({ name: 'image', title: 'Background Image' })), { hidden: ({ parent }) => {
-                return parent.bgType !== 'photo';
+        Object.assign(Object.assign({}, image_1.image), { title: 'Background Image', hidden: ({ parent }) => {
+                return parent.bgType !== 'image';
             } }),
         {
             name: 'videoFile',
@@ -91,20 +95,37 @@ exports.hero = (0, sanity_1.defineType)({
     ],
     preview: {
         select: {
-            photo: 'photo',
+            image: 'image',
             content: 'content.0.children',
             type: 'bgType'
         },
-        prepare({ type, photo, content }) {
+        prepare({ type, image, content }) {
             var _a, _b;
             return type === 'video' ? {
                 title: 'Hero (Video)',
                 subtitle: content && ((_a = content[0]) === null || _a === void 0 ? void 0 : _a.text),
             } : {
-                title: 'Hero (Photo)',
+                title: 'Hero (Image)',
                 subtitle: content && ((_b = content[0]) === null || _b === void 0 ? void 0 : _b.text),
-                media: photo
+                media: image
             };
         }
     }
 });
+exports.heroQuery = (0, groq_1.default) `
+  _type,
+  _key,
+  title,
+  text,
+  bgType,
+  image {
+    ${image_1.imageQuery}
+  },
+  video{
+    id,
+    title
+  },
+  backgroundWidth,
+  theme,
+  contentPlacement
+`;

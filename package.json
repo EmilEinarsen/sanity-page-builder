@@ -28,5 +28,9 @@
   "homepage": "https://github.com/EmilEinarsen/sanity-page-builder#readme",
   "peerDependencies": {
     "sanity": "^3.8.3"
+  },
+  "dependencies": {
+    "@sanity/image-url": "^1.0.2",
+    "groq": "^3.9.0"
   }
 }

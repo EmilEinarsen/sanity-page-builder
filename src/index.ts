@@ -1,2 +1,3 @@
-export { hero } from './schemas/hero'
-export { textImage } from './schemas/text-image'
+export * from './hero'
+export * from './image'
+export * from './text-image'
