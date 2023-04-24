@@ -1,21 +1,13 @@
 {
   "compilerOptions": {
-    "module": "CommonJS",
-    "target": "ES2015",
-    "declaration": true,
-    "outDir": "./dist",
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "allowJs": true,
+    "module": "commonjs",
+    "target": "es2016",
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "incremental": true,
-  },
-  "include": [
-    "src/**/*"
-  ]
+    "noUncheckedIndexedAccess": true,
+    "outDir": "./dist",
+    "noEmit": true
+  }
 }

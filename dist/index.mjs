@@ -1,12 +1,7 @@
-"use strict";
-var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
-var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __propIsEnum = Object.prototype.propertyIsEnumerable;
 var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
@@ -22,48 +17,14 @@ var __spreadValues = (a, b) => {
   return a;
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-
-// src/index.ts
-var src_exports = {};
-__export(src_exports, {
-  hej: () => hej,
-  hero: () => hero,
-  heroQuery: () => heroQuery,
-  image: () => image,
-  imageQuery: () => imageQuery,
-  textImage: () => textImage,
-  textImageQuery: () => textImageQuery
-});
-module.exports = __toCommonJS(src_exports);
 
 // src/hero.ts
-var import_groq2 = __toESM(require("groq"));
-var import_sanity2 = require("sanity");
+import groq2 from "groq";
+import { defineType } from "sanity";
 
 // src/image.ts
-var import_groq = __toESM(require("groq"));
-var import_sanity = require("sanity");
+import groq from "groq";
+import { defineField } from "sanity";
 var crops = [
   { title: "Original", value: 0 },
   { title: "1 : 1 (square)", value: 1 },
@@ -71,7 +32,7 @@ var crops = [
   { title: "4 : 6", value: 0.6666666667 },
   { title: "16 : 9", value: 1.7777777778 }
 ];
-var image = (0, import_sanity.defineField)({
+var image = defineField({
   type: "image",
   name: "image",
   title: "Image",
@@ -79,7 +40,7 @@ var image = (0, import_sanity.defineField)({
     hotspot: true
   },
   fields: [
-    (0, import_sanity.defineField)({
+    defineField({
       title: "Display Size (aspect ratio)",
       name: "customRatio",
       type: "number",
@@ -118,7 +79,7 @@ var image = (0, import_sanity.defineField)({
     }
   }
 });
-var imageQuery = import_groq.default`
+var imageQuery = groq`
   asset,
   crop,
   hotspot,
@@ -134,7 +95,7 @@ var imageQuery = import_groq.default`
 `;
 
 // src/hero.ts
-var hero = (0, import_sanity2.defineType)({
+var hero = defineType({
   type: "object",
   name: "hero",
   title: "Hero",
@@ -242,7 +203,7 @@ var hero = (0, import_sanity2.defineType)({
     }
   }
 });
-var heroQuery = import_groq2.default`
+var heroQuery = groq2`
   _type,
   _key,
   title,
@@ -261,9 +222,9 @@ var heroQuery = import_groq2.default`
 `;
 
 // src/text-image.ts
-var import_groq3 = __toESM(require("groq"));
-var import_sanity3 = require("sanity");
-var textImage = (0, import_sanity3.defineType)({
+import groq3 from "groq";
+import { defineType as defineType2 } from "sanity";
+var textImage = defineType2({
   name: "text-image",
   title: "Text Image",
   type: "object",
@@ -305,7 +266,7 @@ var textImage = (0, import_sanity3.defineType)({
     }
   }
 });
-var textImageQuery = import_groq3.default`
+var textImageQuery = groq3`
   _type,
   _key,
   body,
@@ -317,8 +278,7 @@ var textImageQuery = import_groq3.default`
 
 // src/index.ts
 var hej = "hej";
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
+export {
   hej,
   hero,
   heroQuery,
@@ -326,4 +286,4 @@ var hej = "hej";
   imageQuery,
   textImage,
   textImageQuery
-});
+};
